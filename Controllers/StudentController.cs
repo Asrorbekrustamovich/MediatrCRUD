@@ -18,7 +18,9 @@ namespace Mediatrbilan_ishlash_WebCore.Controllers
         public async Task<IActionResult> Create(StudentMediatr student)
         {
             var request = new CreateStudentMediatrService { StudentMediatr = student };
+            var request1 = new StudentCreatedNotification { Studentmediator = student };
             var createdStudent = await _mediator.Send(request);
+
             return Ok(createdStudent);
         }
         [HttpGet("Getall")]
