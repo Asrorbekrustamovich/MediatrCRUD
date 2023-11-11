@@ -20,7 +20,6 @@ namespace Mediatrbilan_ishlash_WebCore
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<MyDbcontext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("Connection")));
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
             builder.Services.AddSingleton<ITelegramBotClient>(_ => new TelegramBotClient("6375886608:AAERXXYqjZnls5AMHBfbWR5axa7_BOqIL3I"));
 
             var app = builder.Build();
