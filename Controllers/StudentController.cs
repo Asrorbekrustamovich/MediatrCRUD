@@ -57,6 +57,8 @@ namespace Mediatrbilan_ishlash_WebCore.Controllers
         {
             var request = new UpdateMediatrService { StudentMediatr = studentMediatr };
             var updatestudent = await _mediator.Send(request);
+            var request1=new  StudentUpdateNotification(studentMediatr);
+           await _mediator.Publish(request1);
             return Ok(updatestudent);
         }
     }

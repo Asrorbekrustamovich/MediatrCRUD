@@ -15,9 +15,19 @@ namespace Mediatrbilan_ishlash_WebCore.Handlers
 
         public async Task<bool> Handle(UpdateMediatrService request, CancellationToken cancellationToken)
         {
-            _dbcontext.Update(request.StudentMediatr);
-            await _dbcontext.SaveChangesAsync(cancellationToken);
+            var client = await _dbcontext.Studentsmediatr.FindAsync(request.StudentMediatr.Id);
+
+            if (client == null)
+            {
+
+            }
+
+            client.Name=request.StudentMediatr.Name;
+            client.Description=request.StudentMediatr.Description;
+            client.Id=request.StudentMediatr.Id;
+            _dbcontext.SaveChanges();
             return true;
+           
         }
     }
 }
