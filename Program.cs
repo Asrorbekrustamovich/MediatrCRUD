@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MediatR;
 using Telegram.Bot;
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Extensions.Options;
 
 namespace Mediatrbilan_ishlash_WebCore
 {
@@ -21,6 +23,12 @@ namespace Mediatrbilan_ishlash_WebCore
             builder.Services.AddDbContext<MyDbcontext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("Connection")));
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
             builder.Services.AddSingleton<ITelegramBotClient>(_ => new TelegramBotClient("6375886608:AAERXXYqjZnls5AMHBfbWR5axa7_BOqIL3I"));
+            builder.Services.Configure<RateLimiterOptions>(o => o
+                .AddFixedWindowLimiter(policyName: "fixed", options =>
+                {
+                    options.PermitLimit = 10;
+                    options.QueueLimit = 5;
+                }));
 
             var app = builder.Build();
 

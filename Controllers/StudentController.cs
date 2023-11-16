@@ -2,6 +2,7 @@ using MediatR;
 using Mediatrbilan_ishlash_WebCore.ServiceforNotification;
 using Mediatrbilan_ishlash_WebCore.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Mediatrbilan_ishlash_WebCore.Controllers
 {
@@ -16,6 +17,7 @@ namespace Mediatrbilan_ishlash_WebCore.Controllers
             _mediator = mediator;
         }
         [HttpPost("Post")]
+        
         public async Task<IActionResult> Create(StudentMediatr student)
         {
             var request = new CreateStudentMediatrService { StudentMediatr = student };
@@ -26,6 +28,8 @@ namespace Mediatrbilan_ishlash_WebCore.Controllers
             return Ok(request);
         }
         [HttpGet("Getall")]
+        [EnableRateLimiting("fixed")]
+        
         public async Task<IActionResult> Getall()
         {
             var request = new GetallMediatrService();
@@ -53,6 +57,7 @@ namespace Mediatrbilan_ishlash_WebCore.Controllers
             return Ok(getbyid);
         }
         [HttpPatch("Update")]
+        
         public async Task<IActionResult> Update(StudentMediatr studentMediatr)
         {
             var request = new UpdateMediatrService { StudentMediatr = studentMediatr };
